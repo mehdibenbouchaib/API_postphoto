@@ -1,16 +1,28 @@
 package com.photo.model;
 
+import javax.persistence.*;
 import javax.xml.crypto.Data;
 import java.util.List;
 
+
+@Entity
 public class Post {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(updatable = false, nullable = false)
     private Integer id;
     private String name;
+
+    @Column(columnDefinition = "text")
     private String caption;
     private  String location;
     private  int likes;
     private Data postedDate;
     private Integer userImageId;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "post_id")
     private List<Comment>commentList;
     public Post(){}
 
