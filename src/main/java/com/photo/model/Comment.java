@@ -1,10 +1,20 @@
 package com.photo.model;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.xml.crypto.Data;
 
 public class Comment {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(updatable = false, nullable = false)
     private Integer id;
     private String username;
+
+    @Column(columnDefinition = "text")
     private String content;
     private Data postedDate;
     public Comment(){}

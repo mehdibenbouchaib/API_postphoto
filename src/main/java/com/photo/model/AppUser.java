@@ -4,17 +4,33 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.*;
 
+@Entity
 public class AppUser {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(updatable = false, nullable = false)
     private Integer id;
     private String name;
+
+    @Column(unique = true)
     private String username;
     private String password;
     private String email;
+
+    @Column(columnDefinition = "text")
     private String bio;
     private Date craetedDate;
+
+    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserRole> userRoles = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Post> post;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Post> likedPost;
 
     public AppUser() {
