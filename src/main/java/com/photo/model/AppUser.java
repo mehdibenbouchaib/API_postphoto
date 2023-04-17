@@ -24,6 +24,7 @@ public class AppUser {
     private String bio;
     private Date createdDate;
 
+
     @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserRole> userRoles = new HashSet<>();
 

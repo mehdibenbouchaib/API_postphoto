@@ -1,7 +1,12 @@
 package com.photo.model;
 
+
 import javax.persistence.*;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Comment {
