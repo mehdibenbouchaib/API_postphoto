@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
+@Entity
 public class UserRole {
 
     @Id
@@ -19,7 +20,8 @@ public class UserRole {
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
 
-    public UserRole(){}
+    public UserRole() {
+    }
 
     public UserRole(long userRoleId, AppUser appUser, Role role) {
         this.userRoleId = userRoleId;

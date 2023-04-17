@@ -22,7 +22,7 @@ public class AppUser {
 
     @Column(columnDefinition = "text")
     private String bio;
-    private Date craetedDate;
+    private Date createdDate;
 
     @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserRole> userRoles = new HashSet<>();
@@ -42,7 +42,7 @@ public class AppUser {
                    String password,
                    String email,
                    String bio,
-                   Date craetedDate,
+                   Date createdDate,
                    Set<UserRole> userRoles,
                    List<Post> post,
                    List<Post> likedPost) {
@@ -52,7 +52,7 @@ public class AppUser {
         this.password = password;
         this.email = email;
         this.bio = bio;
-        this.craetedDate = craetedDate;
+        this.createdDate = createdDate;
         this.userRoles = userRoles;
         this.post = post;
         this.likedPost = likedPost;
@@ -106,12 +106,12 @@ public class AppUser {
         this.bio = bio;
     }
 
-    public Date getCraetedDate() {
-        return craetedDate;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCraetedDate(Date craetedDate) {
-        this.craetedDate = craetedDate;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Set<UserRole> getUserRoles() {
@@ -137,6 +137,4 @@ public class AppUser {
     public void setLikedPost(List<Post> likedPost) {
         this.likedPost = likedPost;
     }
-
-
 }
