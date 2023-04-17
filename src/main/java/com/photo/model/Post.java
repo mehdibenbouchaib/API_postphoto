@@ -1,7 +1,8 @@
 package com.photo.model;
 
 import javax.persistence.*;
-import javax.xml.crypto.Data;
+import java.util.Date;
+
 import java.util.List;
 
 
@@ -18,7 +19,7 @@ public class Post {
     private String caption;
     private  String location;
     private  int likes;
-    private Data postedDate;
+    private Date postedDate;
     private Integer userImageId;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -31,7 +32,7 @@ public class Post {
                 String caption,
                 String location,
                 int likes,
-                Data postedDate,
+                Date postedDate,
                 Integer userImageId,
                 List<Comment> commentList) {
         this.id = id;
@@ -84,11 +85,11 @@ public class Post {
         this.likes = likes;
     }
 
-    public Data getPostedDate() {
+    public Date getPostedDate() {
         return postedDate;
     }
 
-    public void setPostedDate(Data postedDate) {
+    public void setPostedDate(Date postedDate) {
         this.postedDate = postedDate;
     }
 

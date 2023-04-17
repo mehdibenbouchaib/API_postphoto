@@ -1,11 +1,14 @@
 package com.photo.model;
 
+
+import javax.persistence.*;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.xml.crypto.Data;
 
+@Entity
 public class Comment {
 
     @Id
@@ -16,10 +19,10 @@ public class Comment {
 
     @Column(columnDefinition = "text")
     private String content;
-    private Data postedDate;
+    private Date postedDate;
     public Comment(){}
 
-    public Comment(Integer id, String username, String content, Data postedDate) {
+    public Comment(Integer id, String username, String content, Date postedDate) {
         this.id = id;
         this.username = username;
         this.content = content;
@@ -50,11 +53,11 @@ public class Comment {
         this.content = content;
     }
 
-    public Data getPostedDate() {
+    public Date getPostedDate() {
         return postedDate;
     }
 
-    public void setPostedDate(Data postedDate) {
+    public void setPostedDate(Date postedDate) {
         this.postedDate = postedDate;
     }
 }
