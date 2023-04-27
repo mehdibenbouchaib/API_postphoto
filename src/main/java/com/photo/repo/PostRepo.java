@@ -15,7 +15,7 @@ public interface PostRepo extends JpaRepository<Post, Long> {
     public List<Post> findByUsername(@Param("username") String username);
 
     @Query("SELECT p FROM Post p WHERE p.id=:x")
-    public Post findByID(@Param("x") Long id);
+    public Post findPostByID(@Param("x") Long id);
 
     @Query("DELETE Post WHERE id=:x")
     public void deletePostById(@Param("x") Long id);

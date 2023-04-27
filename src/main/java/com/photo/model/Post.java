@@ -12,11 +12,13 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false)
-    private Integer id;
+    private Long id;
     private String name;
 
     @Column(columnDefinition = "text")
     private String caption;
+
+    private String username;
     private  String location;
     private  int likes;
     private Date postedDate;
@@ -27,9 +29,10 @@ public class Post {
     private List<Comment>commentList;
     public Post(){}
 
-    public Post(Integer id,
+    public Post(Long id,
                 String name,
                 String caption,
+                String username,
                 String location,
                 int likes,
                 Date postedDate,
@@ -38,6 +41,7 @@ public class Post {
         this.id = id;
         this.name = name;
         this.caption = caption;
+        this.username = username;
         this.location = location;
         this.likes = likes;
         this.postedDate = postedDate;
@@ -45,11 +49,11 @@ public class Post {
         this.commentList = commentList;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -63,6 +67,10 @@ public class Post {
 
     public String getCaption() {
         return caption;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public void setCaption(String caption) {
@@ -88,6 +96,11 @@ public class Post {
     public Date getPostedDate() {
         return postedDate;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
 
     public void setPostedDate(Date postedDate) {
         this.postedDate = postedDate;

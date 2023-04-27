@@ -3,6 +3,7 @@ package com.photo.service;
 import com.photo.model.AppUser;
 import com.photo.model.Post;
 import org.springframework.security.core.parameters.P;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -20,6 +21,6 @@ public interface PostService {
 
     public Post deletPost(Post post);
 
-    public String savePostImage(HttpServletRequest request, String fileName);
+    public String savePostImage(MultipartFile multipartFile, String fileName);
 
 }
