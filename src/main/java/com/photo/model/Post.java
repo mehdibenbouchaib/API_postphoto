@@ -1,13 +1,21 @@
 package com.photo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Date;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 
 @Entity
-public class Post {
+public class Post implements Serializable {
+
+    private static final long serialVersionUID =458237586786L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,11 +29,13 @@ public class Post {
     private String username;
     private  String location;
     private  int likes;
+
+    @CreationTimestamp
     private Date postedDate;
-    private Integer userImageId;
+    private Long userImageId;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "post_id")
+    //@JoinColumn(name = "post_id")
     private List<Comment>commentList;
     public Post(){}
 
@@ -33,16 +43,15 @@ public class Post {
                 String name,
                 String caption,
                 String username,
-                String location,
                 int likes,
                 Date postedDate,
-                Integer userImageId,
+                Long userImageId,
                 List<Comment> commentList) {
+        super();
         this.id = id;
         this.name = name;
         this.caption = caption;
         this.username = username;
-        this.location = location;
         this.likes = likes;
         this.postedDate = postedDate;
         this.userImageId = userImageId;
@@ -106,19 +115,33 @@ public class Post {
         this.postedDate = postedDate;
     }
 
-    public Integer getUserImageId() {
+    public Long getUserImageId() {
         return userImageId;
     }
 
-    public void setUserImageId(Integer userImageId) {
+    public void setUserImageId(Long userImageId) {
         this.userImageId = userImageId;
     }
 
-    public List<Comment> getCommentList() {
-        return commentList;
+
+    public Stream<Comment> getCommentList() {
+        if (commentList != null) {
+            return commentList.stream().sorted(Comparator.comparing(Comment::getPostedDate));
+        }
+        return null;
     }
 
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
+    @JsonIgnore
+    public void setComments(Comment comment){
+        if (comment != null){
+            this.commentList.add(comment);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Post [id=" + id + ", name=" + name + ", caption=" + caption + ", username=" + username + ", location="
+                + location + ", userImageId=" + userImageId + ", likes=" + likes + ", postedDate=" + postedDate
+                + ", commentList=" + commentList + "]";
     }
 }
