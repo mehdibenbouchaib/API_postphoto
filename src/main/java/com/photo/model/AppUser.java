@@ -1,5 +1,9 @@
 package com.photo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -7,21 +11,27 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
-public class AppUser {
+public class AppUser implements Serializable {
+
+    private static final long serialVersionUID = 164669782975869L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false)
-    private Integer id;
+    private Long id;
     private String name;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String email;
 
     @Column(columnDefinition = "text")
     private String bio;
+
+    @CreationTimestamp
     private Date createdDate;
 
 
@@ -29,15 +39,17 @@ public class AppUser {
     private Set<UserRole> userRoles = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "appUser_id")
     private List<Post> post;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "likedPostappUser_id")
     private List<Post> likedPost;
 
     public AppUser() {
     }
 
-    public AppUser(Integer id,
+    public AppUser(Long id,
                    String name,
                    String username,
                    String password,
@@ -59,11 +71,11 @@ public class AppUser {
         this.likedPost = likedPost;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

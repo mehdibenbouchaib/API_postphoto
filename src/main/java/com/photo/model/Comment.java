@@ -1,7 +1,10 @@
 package com.photo.model;
 
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -9,31 +12,35 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Comment {
+public class Comment implements Serializable {
+
+    private static final long serialVersionUID = 4572479825L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false)
-    private Integer id;
+    private Long id;
     private String username;
 
     @Column(columnDefinition = "text")
     private String content;
+
+    @CreationTimestamp
     private Date postedDate;
     public Comment(){}
 
-    public Comment(Integer id, String username, String content, Date postedDate) {
+    public Comment(Long id, String username, String content, Date postedDate) {
         this.id = id;
         this.username = username;
         this.content = content;
         this.postedDate = postedDate;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

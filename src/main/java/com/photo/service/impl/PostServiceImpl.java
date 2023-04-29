@@ -6,8 +6,10 @@ import com.photo.repo.PostRepo;
 import com.photo.service.PostService;
 import com.photo.utility.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,22 +20,24 @@ import java.util.HashMap;
 
 import java.util.List;
 
+@Service
+@Transactional
 public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostRepo postRepo;
 
     @Override
-    public Post savePost(AppUser appUser, HashMap<String, String> request, String postImageName) {
+    public Post savePost(AppUser user, HashMap<String, String> request, String postImageName) {
         String caption = request.get("caption");
         String location = request.get("location");
         Post post = new Post();
         post.setCaption(caption);
         post.setLocation(location);
-        post.setUsername(appUser.getUsername());
+        post.setUsername(user.getUsername());
         post.setPostedDate(new Date());
-        post.setUserImageId(appUser.getId());
-        appUser.setPost(post);
+        post.setUserImageId(user.getId());
+        user.setPost(post);
         postRepo.save(post);
         return post;
     }
